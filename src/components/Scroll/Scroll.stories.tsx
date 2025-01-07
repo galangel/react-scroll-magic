@@ -8,90 +8,25 @@ export default {
   component: Scroll,
 } as Meta;
 
+const BunchOfItems = ({ numberOfItems }: { numberOfItems: number }) => {
+  const items = Array.from({ length: numberOfItems }, (_, i) => i);
+  return items.map((item) => (
+    <ScrollItem key={item} style={{ height: '20px', backgroundColor: '#b0b0b0' }}>
+      Content {item}
+    </ScrollItem>
+  ));
+};
+
 const Template: Story = (args) => (
   <Scroll style={{ height: '300px', overflow: 'auto', backgroundColor: 'green' }} {...args}>
     <ScrollHeader style={{ height: '20px', backgroundColor: '#f58383', width: '100%' }}>Header 1</ScrollHeader>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
-
+    <BunchOfItems numberOfItems={20} />
     <ScrollHeader style={{ height: '40px', backgroundColor: '#f58383', width: '100%' }}>Header 2</ScrollHeader>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
-
+    <BunchOfItems numberOfItems={20} />
     <ScrollHeader style={{ height: '20px', backgroundColor: '#f58383', width: '100%' }}>Header 3</ScrollHeader>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 3</ScrollItem>
-
+    <BunchOfItems numberOfItems={20} />
     <ScrollHeader style={{ height: '20px', backgroundColor: '#f58383', width: '100%' }}>Header 4</ScrollHeader>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
-    <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 4</ScrollItem>
+    <BunchOfItems numberOfItems={20} />
   </Scroll>
 );
 
