@@ -1,4 +1,5 @@
 import { Button } from './components';
+import { Scroll } from './components/Scroll';
 
 export default function App() {
   return (
@@ -19,6 +20,10 @@ export default function App() {
           <Button isLoading>Loading</Button>
           <Button disabled>Disabled</Button>
         </div>
+        <Scroll>
+          <Scroll.Header>OK</Scroll.Header>
+          <Scroll.Item>1</Scroll.Item>
+        </Scroll>
       </div>
     </div>
   );
