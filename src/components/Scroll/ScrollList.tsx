@@ -18,7 +18,7 @@ export const ScrollList: React.FC<React.PropsWithChildren<React.LiHTMLAttributes
   return (
     <ul
       ref={listRef}
-      className="box-border h-full m-0 p-0 w-full list-inside overflow-x-hidden overflow-y-scroll"
+      className="box-border h-full m-0 p-0 w-full list-inside overflow-x-hidden overflow-y-scroll relative"
       {...props}
     >
       {children}

@@ -29,8 +29,8 @@ const Template: Story = (args) => (
       <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
       <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 1</ScrollItem>
       <ScrollItem style={{ height: '20px', backgroundColor: '#ec1515' }}>Content 1</ScrollItem>
-    
-      <ScrollHeader style={{ height: '20px', backgroundColor: '#f58383', width: '100%' }}>Header 2</ScrollHeader>
+  
+      <ScrollHeader style={{ height: '40px', backgroundColor: '#f58383', width: '100%' }}>Header 2</ScrollHeader>
       <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
       <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>
       <ScrollItem style={{ height: '20px', backgroundColor: '#b0b0b0' }}>Content 2</ScrollItem>

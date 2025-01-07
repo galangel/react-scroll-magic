@@ -34,16 +34,10 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
     if (listRef && nextItem) {
       listRef.scrollTo({
         top:
-          nextItem.offsetTop -
-          getStickedHeadersTotalHeight(0, headerIndex) -
-          nextItem.getBoundingClientRect().height -
-          header.getBoundingClientRect().height ,
+          nextItem.offsetTop - getStickedHeadersTotalHeight(0, headerIndex) - nextItem.getBoundingClientRect().height,
         behavior: scrollBehavior,
       });
-          console.log('🚀 ~ scrollToView ~ header.getBoundingClientRect().height:', header.getBoundingClientRect().height);
-          console.log('🚀 ~ scrollToView ~ nextItem.getBoundingClientRect().height:', nextItem.getBoundingClientRect().height);
-          console.log('🚀 ~ scrollToView ~ getStickedHeadersTotalHeight(0, headerIndex):', getStickedHeadersTotalHeight(0, headerIndex));
-          console.log('🚀 ~ scrollToView ~ nextItem.offsetTop:', nextItem.offsetTop);
+      console.clear();
     }
   };
 
@@ -52,15 +46,15 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
     headersClone.push(headerRef);
     headers.current = headersClone;
 
-    return headersClone.length -1;
+    return headersClone.length - 1;
   };
 
   const getStickedHeadersTotalHeight = (start: number, end: number) => {
     const range = headers.current.slice(start, end);
-    
+
     const size = range.reduce((acc, header) => {
       const size = acc + header?.getBoundingClientRect?.().height || 0;
-      
+
       return size;
     }, 0);
 
@@ -69,7 +63,15 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
 
   return (
     <HeadersContext.Provider
-      value={{ addHeader, getStickedHeadersTotalHeight, stickTo, scrollToView, setListRef, scrollBehavior, headers: headers.current }}
+      value={{
+        addHeader,
+        getStickedHeadersTotalHeight,
+        stickTo,
+        scrollToView,
+        setListRef,
+        scrollBehavior,
+        headers: headers.current,
+      }}
     >
       {children}
     </HeadersContext.Provider>
