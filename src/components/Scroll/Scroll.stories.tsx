@@ -18,14 +18,14 @@ const BunchOfItems = ({ numberOfItems }: { numberOfItems: number }) => {
 };
 
 const Template: Story = (args) => (
-  <Scroll style={{ height: '300px', overflow: 'auto', backgroundColor: 'green' }} {...args}>
-    <ScrollHeader style={{ height: '20px', backgroundColor: '#f58383', width: '100%' }}>Header 1</ScrollHeader>
+  <Scroll style={{ height: '200px', width: '200px', overflow: 'auto', backgroundColor: 'green' }} {...args}>
+    <ScrollHeader style={{ height: '20px', backgroundColor: '#ce7ba4', width: '100%' }}>Header 1</ScrollHeader>
     <BunchOfItems numberOfItems={20} />
-    <ScrollHeader style={{ height: '40px', backgroundColor: '#f58383', width: '100%' }}>Header 2</ScrollHeader>
+    <ScrollHeader style={{ height: '20px', backgroundColor: '#f58383', width: '100%' }}>Header 2</ScrollHeader>
     <BunchOfItems numberOfItems={20} />
-    <ScrollHeader style={{ height: '20px', backgroundColor: '#f58383', width: '100%' }}>Header 3</ScrollHeader>
+    <ScrollHeader style={{ height: '20px', backgroundColor: '#4378b8', width: '100%' }}>Header 3</ScrollHeader>
     <BunchOfItems numberOfItems={20} />
-    <ScrollHeader style={{ height: '20px', backgroundColor: '#f58383', width: '100%' }}>Header 4</ScrollHeader>
+    <ScrollHeader style={{ height: '20px', backgroundColor: '#61d771', width: '100%' }}>Header 4</ScrollHeader>
     <BunchOfItems numberOfItems={20} />
   </Scroll>
 );

@@ -3,7 +3,7 @@ import { useScrollContext } from './Scroll.provider';
 
 interface IScrollHeaderProps extends React.PropsWithChildren<React.LiHTMLAttributes<HTMLLIElement>> {}
 
-export const ScrollHeader: React.FC<IScrollHeaderProps> = ({ children, style = {}, ...props }) => {
+export const ScrollHeader: React.FC<IScrollHeaderProps> = ({ children, style = {}, className = '', ...props }) => {
   const { getStickedHeadersTotalHeight, addHeader, scrollToView, stickTo, headers } = useScrollContext();
 
   const headerIndex = useRef(0);
@@ -35,7 +35,7 @@ export const ScrollHeader: React.FC<IScrollHeaderProps> = ({ children, style = {
   return (
     <li
       onClick={handleClick}
-      className={`sticky flex box-border border-none list-none p-0 m-0 w-full z-10 cursor-pointer ${stickTo === 'top' || stickTo === 'all' ? 'top-0' : ''} ${stickTo === 'bottom' || stickTo === 'all' ? 'bottom-0' : ''}`}
+      className={`${className} sticky flex box-border border-none list-none p-0 m-0 w-full z-10 cursor-pointer ${stickTo === 'top' || stickTo === 'all' ? 'top-0' : ''} ${stickTo === 'bottom' || stickTo === 'all' ? 'bottom-0' : ''}`}
       style={{ ...style, top, bottom }}
       aria-label="Accordion Header"
       role="heading"
