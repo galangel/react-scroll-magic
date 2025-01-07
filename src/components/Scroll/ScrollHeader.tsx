@@ -3,11 +3,7 @@ import { useScrollContext } from './Scroll.provider';
 
 interface IScrollHeaderProps extends React.PropsWithChildren<React.LiHTMLAttributes<HTMLLIElement>> {}
 
-export const ScrollHeader: React.FC<IScrollHeaderProps> = ({
-  children,
-  style = {},
-  ...props
-}) => {
+export const ScrollHeader: React.FC<IScrollHeaderProps> = ({ children, style = {}, ...props }) => {
   const { getStickedHeadersTotalHeight, addHeader, scrollToView, stickTo, headers } = useScrollContext();
 
   const headerIndex = useRef(0);
@@ -26,16 +22,16 @@ export const ScrollHeader: React.FC<IScrollHeaderProps> = ({
 
   const top = stickTo === 'top' || stickTo === 'all' ? getStickedHeadersTotalHeight(0, headerIndex.current) : 'auto';
   const bottom =
-  stickTo === 'bottom' || stickTo === 'all'
-  ? getStickedHeadersTotalHeight(headerIndex.current + 1, headers.length)
-  : 'auto';
-  
+    stickTo === 'bottom' || stickTo === 'all'
+      ? getStickedHeadersTotalHeight(headerIndex.current + 1, headers.length)
+      : 'auto';
+
   const handleClick = () => {
     if (ref.current) {
       scrollToView(ref.current, headerIndex.current);
     }
   };
-  
+
   return (
     <li
       onClick={handleClick}
