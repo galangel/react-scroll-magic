@@ -10,8 +10,19 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  viteFinal: (config) => {
-    config.base = './docs'; // Use relative paths for assets
+  viteFinal: async (config) => {
+    config.base = '/react-scroll-magic/'; // Explicit GitHub Pages subpath
+    config.build = {
+      ...config.build,
+      rollupOptions: {
+        ...config.build?.rollupOptions,
+        output: {
+          ...config.build?.rollupOptions?.output,
+          assetFileNames: 'assets/[name]-[hash][extname]',
+          entryFileNames: 'assets/[name]-[hash].js',
+        },
+      },
+    };
     return config;
   },
 };
