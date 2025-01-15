@@ -18,7 +18,7 @@ const BunchOfItems = ({ numberOfItems }: { numberOfItems: number }) => {
 };
 
 const Template: Story = (args) => (
-  <Scroll style={{ height: '200px', width: '200px', overflow: 'auto' }} {...args}>
+  <Scroll style={{ height: '200px', width: '200px', overflow: 'auto', fontSize: '10px' }} {...args}>
     <ScrollHeader style={{ height: '20px', backgroundColor: '#ce7ba4', width: '100%' }}>Header 1</ScrollHeader>
     <BunchOfItems numberOfItems={20} />
     <ScrollHeader style={{ height: '20px', backgroundColor: '#f58383', width: '100%' }}>Header 2</ScrollHeader>
