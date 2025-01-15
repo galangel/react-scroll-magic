@@ -30,6 +30,6 @@ const Template: Story = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  stickTo: 'top',
+  stickTo: 'all',
   scrollBehavior: 'smooth',
 };

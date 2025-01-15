@@ -37,7 +37,6 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
           nextItem.offsetTop - getStickedHeadersTotalHeight(0, headerIndex) - nextItem.getBoundingClientRect().height,
         behavior: scrollBehavior,
       });
-      console.clear();
     }
   };
 
