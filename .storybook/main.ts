@@ -11,7 +11,7 @@ const config: StorybookConfig = {
     autodocs: 'tag',
   },
   viteFinal: (config) => {
-    config.base = './'; // Use relative paths for assets
+    config.base = './docs'; // Use relative paths for assets
     return config;
   },
 };
