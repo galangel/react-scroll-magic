@@ -6,11 +6,7 @@ export const ScrollItem: React.FC<React.PropsWithChildren<React.LiHTMLAttributes
   ...props
 }) => {
   return (
-    <li
-      role="listitem"
-      className={`${className} flex w-full box-border relative p-0 m-0 border-none list-none`}
-      {...props}
-    >
+    <li role="listitem" aria-label="Scroll Item" className={`scroll-item ${className}`} {...props}>
       {children}
     </li>
   );

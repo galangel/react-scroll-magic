@@ -27,13 +27,9 @@
     "prepare": "npm run build",
     "storybook": "storybook dev -p 6006"
   },
-  "peerDependencies": {
+  "dependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
-  },
-  "dependencies": {
-    "clsx": "^2.1.0",
-    "tailwind-merge": "^2.2.1"
   },
   "devDependencies": {
     "eslint-plugin-import": "^2.31.0",

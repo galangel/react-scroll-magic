@@ -10,7 +10,6 @@ The Scroll Magic Component is a React component that provides smooth scrolling f
 
 - sticky headers in both directions
 - scroll to header by click
-- support tailwind
 - typescript
 
 ## Installation
@@ -37,14 +36,14 @@ import { ScrollComponent } from 'react-scroll-magic';
 
 const App = () => {
   return (
-    <ScrollComponent>
-      <ScrollHeader>
+    <Scroll>
+      <Scroll.Header>
         <h1>Scroll down to see the magic!</h1>
-      </ScrollHeader>
-      <ScrollItem>
+      </Scroll.Header>
+      <Scroll.Item>
         <p>Keep scrolling...</p>
-      </ScrollItem>
-    </ScrollComponent>
+      </Scroll.Item>
+    </Scroll>
   );
 };
 

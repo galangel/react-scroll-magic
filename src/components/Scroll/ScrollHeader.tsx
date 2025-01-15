@@ -35,9 +35,9 @@ export const ScrollHeader: React.FC<IScrollHeaderProps> = ({ children, style = {
   return (
     <li
       onClick={handleClick}
-      className={`${className} sticky flex box-border border-none list-none p-0 m-0 w-full z-10 cursor-pointer ${stickTo === 'top' || stickTo === 'all' ? 'top-0' : ''} ${stickTo === 'bottom' || stickTo === 'all' ? 'bottom-0' : ''}`}
+      className={`scroll-header ${className}`}
       style={{ ...style, top, bottom }}
-      aria-label="Accordion Header"
+      aria-label="Scroll Header"
       role="heading"
       aria-level={1}
       {...props}
