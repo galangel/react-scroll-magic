@@ -10,11 +10,6 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
-  viteFinal: async (config) => {
-    config.base = '/react-scroll-magic/docs';
-
-    return config;
-  },
 };
 
 export default config;
