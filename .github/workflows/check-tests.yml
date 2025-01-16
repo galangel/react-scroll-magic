@@ -1,11 +1,11 @@
-name: Check Format
+name: Check tests
 
 on:
   pull_request:
     types: [opened, synchronize]
 
 jobs:
-  check-format:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,5 +20,5 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run format check
-        run: npm run format
+      - name: Run tests
+        run: npm test
