@@ -18,10 +18,11 @@
   ],
   "sideEffects": false,
   "scripts": {
+    "postinstall": "git config core.hooksPath ./git-hooks",
     "dev": "storybook dev -p 6006",
     "build": "tsc && vite build",
     "build-storybook": "storybook build",
-    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "format": "prettier --check \"src/**/*.{ts,tsx,css}\"",
     "storybook": "storybook dev -p 6006"
   },
   "dependencies": {

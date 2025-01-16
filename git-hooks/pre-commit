@@ -1,0 +1,9 @@
+echo 'Running pre-commit hook'
+npm run format
+
+if [ $? -ne 0 ]; then
+	echo "\n\033[0;31mFormat check failed. Please address the issues and try committing again.\033[0m\n"
+	exit 1
+else
+	echo "\n\033[0;32mFormat check passed! You're awesome!\033[0m\n"
+fi
