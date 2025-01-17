@@ -59,6 +59,27 @@ The Scroll Component accepts the following props:
 | `stickTo`        | `top`\|`bottom`\|`all`        | how headers should stick                               |
 | `scrollBehavior` | `scrollBehavior CSS property` | how the scrolling should behave when clicking a header |
 
+## Wishlist
+
+### Scroll
+
+- [ ] Virtualized scrolling
+- [ ] Snap scrolling
+- [ ] Horizontal scrolling support
+- [ ] Scroll shadow
+- [ ] Maximum number of sticky items
+- [ ] Stacking headers
+- [ ] Collapse header items
+- [ ] Scroll to item scroll via code
+
+### Repo management
+
+- [ ] Better tests
+- [ ] Better looking doc site with more (interactive) examples
+- [ ] Changelog file
+- [ ] Enforce code style using eslint
+- [ ] Ensure support for popular frameworks or libraries
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
