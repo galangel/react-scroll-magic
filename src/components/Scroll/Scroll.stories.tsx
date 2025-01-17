@@ -1,12 +1,17 @@
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import { Scroll } from './index';
 
 export default {
   title: 'Components/Scroll',
   component: Scroll,
+  parameters: {
+    options: { showPanel: true },
+  },
 } as Meta;
 
-const BunchOfItems = ({ numberOfItems, backgroundColor }: { numberOfItems: number; backgroundColor: string }) => {
+type Story = StoryObj<typeof Scroll>;
+
+const BunchOfItems = ({ numberOfItems }: { numberOfItems: number }) => {
   const items = Array.from({ length: numberOfItems }, (_, i) => i);
   return items.map((item) => (
     <Scroll.Item
@@ -59,23 +64,23 @@ const HeaderAndItems = ({ index = 0 }) => {
           Header {index}
         </div>
       </Scroll.Header>
-      <BunchOfItems numberOfItems={20} backgroundColor={backgroundColor} />
+      <BunchOfItems numberOfItems={20} />
     </>
   );
 };
 
-const Template: Story = (args) => {
-  return (
-    <Scroll style={{ height: '300px', width: '300px', overflow: 'auto' }} {...args}>
-      {Array.from({ length: 5 }, (_, i) => i).map((index) => (
-        <HeaderAndItems key={index} index={index} />
-      ))}
-    </Scroll>
-  );
-};
-
-export const Default = Template.bind({});
-Default.args = {
-  stickTo: 'all',
-  scrollBehavior: 'smooth',
+export const BasicExample: Story = {
+  render: (args) => {
+    return (
+      <Scroll style={{ height: '300px', width: '300px', overflow: 'auto' }} {...args}>
+        {Array.from({ length: 5 }, (_, i) => i).map((index) => (
+          <HeaderAndItems key={index} index={index} />
+        ))}
+      </Scroll>
+    );
+  },
+  args: {
+    stickTo: 'all',
+    scrollBehavior: 'smooth',
+  },
 };
