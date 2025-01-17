@@ -1,5 +1,7 @@
-import { Meta } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
+import { Scroll } from './index';
 
 declare const _default: Meta;
 export default _default;
-export declare const Default: import('@storybook/types').AnnotatedStoryFn<import('@storybook/react').ReactRenderer, import('@storybook/types').Args>;
+type Story = StoryObj<typeof Scroll>;
+export declare const BasicExample: Story;
