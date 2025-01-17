@@ -2,11 +2,7 @@
   "name": "react-scroll-magic",
   "version": "0.1.0",
   "description": "Powerful scroll component that feels like magic!",
-  "author": {
-    "name": "Gal Angel",
-    "email": "gal0angel@gmail.com",
-    "url": "https://github.com/galangel"
-  },
+  "author": "Gal Angel <gal0angel@gmail.com> (@gal.angel)",
   "keywords": [
     "scroll",
     "react",
