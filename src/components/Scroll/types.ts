@@ -1,5 +1,7 @@
 export type StickTo = 'top' | 'bottom' | 'all';
 
+export type HeaderBehavior = 'stick' | 'push' | 'stack' | 'none';
+
 export type ScrollContextType = {
   stickTo: StickTo;
   scrollBehavior: ScrollBehavior;
@@ -8,4 +10,13 @@ export type ScrollContextType = {
   scrollToView: (header: HTMLLIElement, headerIndex: number) => void;
   setListRef: (listRef: HTMLUListElement) => void;
   headers: HTMLLIElement[];
+  headerBehavior: HeaderBehavior;
 };
+
+export type Item = {
+  id?: string;
+  render: () => JSX.Element;
+  nestedItems?: Item[];
+};
+
+export type Items = Item[];

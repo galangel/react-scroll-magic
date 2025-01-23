@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash';
 import React, { PropsWithChildren, useRef, useState } from 'react';
-import type { ScrollContextType, StickTo } from './types';
+import type { HeaderBehavior, ScrollContextType, StickTo } from './types';
 
 const HeadersContext = React.createContext<ScrollContextType>({
   addHeader: () => 0,
@@ -10,6 +10,7 @@ const HeadersContext = React.createContext<ScrollContextType>({
   stickTo: 'all',
   scrollBehavior: 'smooth',
   headers: [],
+  headerBehavior: 'none',
 });
 
 export const useScrollContext = () => React.useContext(HeadersContext);
@@ -17,12 +18,14 @@ export const useScrollContext = () => React.useContext(HeadersContext);
 interface IHeadersProvider extends PropsWithChildren {
   stickTo?: StickTo;
   scrollBehavior?: ScrollBehavior;
+  headerBehavior?: HeaderBehavior;
 }
 
 export const HeadersProvider: React.FC<IHeadersProvider> = ({
   children,
   stickTo = 'all',
   scrollBehavior = 'smooth',
+  headerBehavior = 'none',
 }) => {
   const [listRef, setListRef] = useState<HTMLUListElement | null>(null);
 
@@ -44,9 +47,10 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
       const top = Math.ceil(
         nextItem.offsetTop -
           getStickedHeadersTotalHeight(0, headerIndex) -
-          nextItem.getBoundingClientRect().height +
+          header.getBoundingClientRect().height +
           styleOffset,
       );
+
       listRef.scrollTo({
         top,
         behavior: scrollBehavior,
@@ -83,6 +87,7 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
         scrollToView,
         setListRef,
         scrollBehavior,
+        headerBehavior,
         headers: headers.current,
       }}
     >
