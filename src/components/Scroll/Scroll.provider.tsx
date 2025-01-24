@@ -1,16 +1,32 @@
-import { cloneDeep } from 'lodash';
 import React, { PropsWithChildren, useRef, useState } from 'react';
-import type { HeaderBehavior, ScrollContextType, StickTo } from './types';
+import type { HeaderBehavior, StickTo } from './types';
+
+const getPathsbreakdown = (path: number[] = []): string[] => {
+  const range = path.slice(0, path.length - 1);
+  const keys = range.map((_, index) => path.slice(0, index + 1).join('-'));
+  return keys;
+};
+
+export type ScrollContextType = {
+  stickTo: StickTo;
+  scrollBehavior: ScrollBehavior;
+  getTopHeadersTotalHeight: (path: number[]) => number;
+  getBottomHeadersTotalHeight: (path: number[]) => number;
+  scrollToView: (header: HTMLLIElement, path: number[]) => void;
+  setListRef: (listRef: HTMLUListElement) => void;
+  headerBehavior: HeaderBehavior;
+  addHeader: (header: HTMLLIElement, path: number[]) => void;
+};
 
 const HeadersContext = React.createContext<ScrollContextType>({
-  addHeader: () => 0,
-  getStickedHeadersTotalHeight: () => 0,
+  getTopHeadersTotalHeight: () => 0,
+  getBottomHeadersTotalHeight: () => 0,
   scrollToView: () => {},
   setListRef: () => {},
   stickTo: 'all',
   scrollBehavior: 'smooth',
-  headers: [],
   headerBehavior: 'none',
+  addHeader: () => {},
 });
 
 export const useScrollContext = () => React.useContext(HeadersContext);
@@ -29,9 +45,10 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
 }) => {
   const [listRef, setListRef] = useState<HTMLUListElement | null>(null);
 
-  const headers = useRef<HTMLLIElement[]>([]);
+  const headers = useRef<{ [key: string]: HTMLLIElement }>({});
 
-  const scrollToView = (header: HTMLLIElement, headerIndex: number) => {
+  const scrollToView = (header: HTMLLIElement, path: number[]) => {
+    const headerIndex = path[path.length - 1];
     const nextItem = header.nextElementSibling as HTMLLIElement;
 
     if (listRef && nextItem) {
@@ -45,10 +62,7 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
       const styleOffset = nextItemMarginTop + nextItemMarginBot + nextItemPaddingTop + nextItemPaddingBot;
 
       const top = Math.ceil(
-        nextItem.offsetTop -
-          getStickedHeadersTotalHeight(0, headerIndex) -
-          header.getBoundingClientRect().height +
-          styleOffset,
+        nextItem.offsetTop - getTopHeadersTotalHeight(path) - header.getBoundingClientRect().height + styleOffset,
       );
 
       listRef.scrollTo({
@@ -58,16 +72,44 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
     }
   };
 
-  const addHeader = (headerRef: HTMLLIElement): number => {
-    const headersClone = cloneDeep(headers.current);
-    headersClone.push(headerRef);
-    headers.current = headersClone;
-
-    return headersClone.length - 1;
+  const addHeader = (header: HTMLLIElement, path: number[]) => {
+    headers.current[path.join('-')] = header;
   };
 
-  const getStickedHeadersTotalHeight = (start: number, end: number) => {
-    const range = headers.current.slice(start, end);
+  const getTopHeadersTotalHeight = (path: number[] = []) => {
+    const targetPaths: string[] = getPathsbreakdown(path);
+
+    if (headerBehavior === 'stick') {
+      const headerIndex = path[path.length - 1];
+      const siblings = Array.from({ length: headerIndex }, (_, index) => [
+        ...path.slice(0, path.length - 1),
+        index,
+      ]).map((item) => item.join('-'));
+
+      targetPaths.push(...siblings);
+    }
+
+    const range = targetPaths.map((key) => headers.current[key]);
+
+    const size = range.reduce((acc, header) => {
+      const size = acc + header?.getBoundingClientRect?.().height || 0;
+
+      return size;
+    }, 0);
+
+    return size;
+  };
+
+  const getBottomHeadersTotalHeight = (path: number[] = []): number => {
+    const headerIndex = path[path.length - 1];
+
+    const range: HTMLLIElement[] = Object.entries(headers.current).reduce((acc, [key, header]) => {
+      const keyPath = key.split('-').map(Number);
+      if (keyPath.length === 1 && keyPath[0] > headerIndex) {
+        acc.push(header);
+      }
+      return acc;
+    }, [] as HTMLLIElement[]);
 
     const size = range.reduce((acc, header) => {
       const size = acc + header?.getBoundingClientRect?.().height || 0;
@@ -82,13 +124,13 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
     <HeadersContext.Provider
       value={{
         addHeader,
-        getStickedHeadersTotalHeight,
+        getTopHeadersTotalHeight,
+        getBottomHeadersTotalHeight,
         stickTo,
         scrollToView,
         setListRef,
         scrollBehavior,
         headerBehavior,
-        headers: headers.current,
       }}
     >
       {children}

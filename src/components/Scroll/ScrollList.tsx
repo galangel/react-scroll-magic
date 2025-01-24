@@ -4,29 +4,29 @@ import { HeaderBehavior, Items } from './types';
 import { ScrollHeader } from './ScrollHeader';
 import { ScrollItem } from './ScrollItem';
 
-const getItems = (items: Items, headerBehavior: HeaderBehavior, parentKey = '') => {
+const getItems = (items: Items, headerBehavior: HeaderBehavior, path: number[] = []) => {
   return (
     <React.Fragment>
       {items.map((item, index) => {
-        const uniqueKey = `${parentKey}-${index}`;
+        const currentPath = [...path, index];
         if (item.nestedItems?.length) {
           if (headerBehavior === 'push') {
             return (
-              <section key={uniqueKey}>
-                <ScrollHeader>{item.render()}</ScrollHeader>
-                {getItems(item.nestedItems, headerBehavior, uniqueKey)}
+              <section key={currentPath.join('-')}>
+                <ScrollHeader path={currentPath}>{item.render()}</ScrollHeader>
+                {getItems(item.nestedItems, headerBehavior, currentPath)}
               </section>
             );
           } else {
             return (
-              <React.Fragment key={uniqueKey}>
-                <ScrollHeader>{item.render()}</ScrollHeader>
-                {getItems(item.nestedItems, headerBehavior, uniqueKey)}
+              <React.Fragment key={currentPath.join('-')}>
+                <ScrollHeader path={currentPath}>{item.render()}</ScrollHeader>
+                {getItems(item.nestedItems, headerBehavior, currentPath)}
               </React.Fragment>
             );
           }
         } else {
-          return <ScrollItem key={uniqueKey}>{item.render()}</ScrollItem>;
+          return <ScrollItem key={currentPath.join('-')}>{item.render()}</ScrollItem>;
         }
       })}
     </React.Fragment>
