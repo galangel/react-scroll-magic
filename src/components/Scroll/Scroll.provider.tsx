@@ -66,10 +66,7 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
         nextItem.offsetTop - getTopHeadersTotalHeight(path) - header.getBoundingClientRect().height + styleOffset,
       );
 
-      listRef.scrollTo({
-        top,
-        behavior: scrollBehavior,
-      });
+      listRef.scrollTo({ top, behavior: scrollBehavior });
     }
   };
 
