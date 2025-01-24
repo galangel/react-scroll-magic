@@ -8,6 +8,11 @@ export type Collapse = {
   isOpen: boolean;
 };
 
+export type Loading = {
+  onBottomReached?: () => Promise<void>;
+  render?: (isLoading: boolean) => JSX.Element;
+};
+
 type RenderProps = { collapse?: Collapse };
 
 export type Item = {

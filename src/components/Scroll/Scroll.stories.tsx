@@ -1,6 +1,7 @@
 import { Meta, Preview, StoryObj } from '@storybook/react';
 import { Scroll } from './index';
 import { Item, Items } from './types';
+import { useState } from 'react';
 
 const preview: Preview = {
   title: 'Components/Scroll',
@@ -113,17 +114,6 @@ const item: Item['render'] = () => {
       Content {number++}
     </div>
   );
-};
-
-const createItems = (headerCount: number, itemCount: number, level: number = 1): Items => {
-  if (headerCount === 0 || level === 0) {
-    return Array.from({ length: itemCount }, () => ({ render: item }));
-  }
-
-  return Array.from({ length: headerCount }, () => ({
-    render: HeaderCollapse(level),
-    nestedItems: createItems(headerCount, itemCount, level - 1),
-  }));
 };
 
 export const BasicExample: Story = {
@@ -239,6 +229,45 @@ export const ScrollToIdExample: Story = {
         <div style={{ width: '400px', height: '400px' }}>
           <Scroll {...args} items={myitems} />
         </div>
+      </div>
+    );
+  },
+  args: {
+    stickTo: 'all',
+    scrollBehavior: 'smooth',
+    headerBehavior: 'none',
+  },
+};
+
+export const infiniteScrollExample: Story = {
+  render: (args) => {
+    const [updatesLeft, setUpdatesLeft] = useState(5);
+    const createItems = (headerCount: number, itemCount: number, level: number = 1): Items => {
+      if (headerCount === 0 || level === 0) {
+        return Array.from({ length: itemCount }, () => ({ render: item }));
+      }
+
+      return Array.from({ length: headerCount }, () => ({
+        render: Header(level),
+        nestedItems: createItems(headerCount, itemCount, level - 1),
+      }));
+    };
+    const [myitems, setMyItems] = useState<Items>([...createItems(1, 20)]);
+
+    const handleBottomReached = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setUpdatesLeft((prev) => prev - 1);
+      setMyItems((prev) => [...prev, ...createItems(1, 20)]);
+    };
+
+    const loading = {
+      onBottomReached: updatesLeft > 0 ? handleBottomReached : undefined,
+      // render: (isLoading: boolean) => <div>{isLoading ? 'Please wait!' : 'End of the list'}</div>,
+    };
+
+    return (
+      <div style={{ width: '400px', height: '400px' }}>
+        <Scroll {...args} items={myitems} loading={loading} />
       </div>
     );
   },
