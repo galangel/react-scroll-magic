@@ -42,3 +42,35 @@
   border: none;
   list-style: none;
 }
+
+.scroll-loading {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  border: none;
+  list-style: none;
+  height: 4px;
+  background-color: #e0e0e0;
+  overflow: hidden;
+}
+
+.scroll-loading::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #3b82f6;
+  animation: loading 1s linear infinite;
+}
+
+@keyframes loading {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
