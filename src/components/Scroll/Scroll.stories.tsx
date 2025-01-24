@@ -62,6 +62,40 @@ const Header =
     );
   };
 
+const HeaderCollapse =
+  (key: number): Item['render'] =>
+  ({ collapse }) => {
+    const { isOpen, close, open } = collapse ?? {};
+    return (
+      <div
+        style={{
+          fontFamily: 'monospace',
+          fontSize: '12px',
+          display: 'flex',
+          alignItems: 'center',
+          height: `20px`,
+          padding: '5px',
+          backgroundColor: `#${((key * 1234567) & 0xffffff).toString(16).padStart(6, '0')}`,
+          width: '100%',
+          justifyContent: 'space-between',
+        }}
+      >
+        <span>Header</span>
+        <button
+          onClick={isOpen ? close : open}
+          style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '12px',
+          }}
+        >
+          {isOpen ? '▼' : '▶'}
+        </button>
+      </div>
+    );
+  };
+
 const item: Item['render'] = () => {
   return (
     <div
@@ -80,19 +114,30 @@ const item: Item['render'] = () => {
     </div>
   );
 };
+
 const createItems = (headerCount: number, itemCount: number, level: number = 1): Items => {
   if (headerCount === 0 || level === 0) {
     return Array.from({ length: itemCount }, () => ({ render: item }));
   }
 
   return Array.from({ length: headerCount }, () => ({
-    render: Header(level),
+    render: HeaderCollapse(level),
     nestedItems: createItems(headerCount, itemCount, level - 1),
   }));
 };
 
 export const BasicExample: Story = {
   render: (args) => {
+    const createItems = (headerCount: number, itemCount: number, level: number = 1): Items => {
+      if (headerCount === 0 || level === 0) {
+        return Array.from({ length: itemCount }, () => ({ render: item }));
+      }
+
+      return Array.from({ length: headerCount }, () => ({
+        render: Header(level),
+        nestedItems: createItems(headerCount, itemCount, level - 1),
+      }));
+    };
     const myitems: Items = [...createItems(1, 7), ...createItems(5, 3), ...createItems(1, 7)];
     return (
       <div style={{ width: '400px', height: '400px' }}>
@@ -106,8 +151,19 @@ export const BasicExample: Story = {
     headerBehavior: 'none',
   },
 };
+
 export const NestedExample: Story = {
   render: (args) => {
+    const createItems = (headerCount: number, itemCount: number, level: number = 1): Items => {
+      if (headerCount === 0 || level === 0) {
+        return Array.from({ length: itemCount }, () => ({ render: item }));
+      }
+
+      return Array.from({ length: headerCount }, () => ({
+        render: Header(level),
+        nestedItems: createItems(headerCount, itemCount, level - 1),
+      }));
+    };
     const myitems: Items = [...createItems(3, 10, 3)];
     return (
       <div style={{ width: '400px', height: '500px' }}>
@@ -119,5 +175,31 @@ export const NestedExample: Story = {
     stickTo: 'all',
     scrollBehavior: 'smooth',
     headerBehavior: 'none',
+  },
+};
+
+export const CollapseExample: Story = {
+  render: (args) => {
+    const createItems = (headerCount: number, itemCount: number, level: number = 1): Items => {
+      if (headerCount === 0 || level === 0) {
+        return Array.from({ length: itemCount }, () => ({ render: item }));
+      }
+
+      return Array.from({ length: headerCount }, () => ({
+        render: HeaderCollapse(level),
+        nestedItems: createItems(headerCount, itemCount, level - 1),
+      }));
+    };
+    const myitems: Items = [...createItems(1, 10), ...createItems(1, 10), ...createItems(1, 10)];
+    return (
+      <div style={{ width: '400px', height: '400px' }}>
+        <Scroll {...args} items={myitems} />
+      </div>
+    );
+  },
+  args: {
+    stickTo: 'all',
+    scrollBehavior: 'smooth',
+    headerBehavior: 'stick',
   },
 };

@@ -1,19 +1,25 @@
 import React, { CSSProperties, useEffect, useMemo, useRef } from 'react';
 import { useScrollContext } from './Scroll.provider';
+import { Item } from './types';
 
-interface IScrollHeaderProps extends React.PropsWithChildren<React.LiHTMLAttributes<HTMLLIElement>> {
+interface IScrollHeaderProps {
   path: number[];
+  itemRender: Item['render'];
+  itemId?: Item['id'];
 }
 
-export const ScrollHeader: React.FC<IScrollHeaderProps> = ({
-  children,
-  path,
-  style = {},
-  className = '',
-  ...props
-}) => {
-  const { getTopHeadersTotalHeight, getBottomHeadersTotalHeight, scrollToView, stickTo, headerBehavior, addHeader } =
-    useScrollContext();
+export const ScrollHeader: React.FC<IScrollHeaderProps> = ({ path, itemId, itemRender }) => {
+  const {
+    getTopHeadersTotalHeight,
+    getBottomHeadersTotalHeight,
+    scrollToView,
+    stickTo,
+    headerBehavior,
+    addHeader,
+    headerCollaspeClose,
+    headerCollaspeOpen,
+    collapsedPaths,
+  } = useScrollContext();
 
   const ref = useRef<HTMLLIElement | null>(null);
 
@@ -46,16 +52,22 @@ export const ScrollHeader: React.FC<IScrollHeaderProps> = ({
 
   return (
     <li
+      id={itemId}
       onClick={handleClick}
-      className={`scroll-header ${headerBehavior} ${className}`}
-      style={{ ...style, ...behaviorStyle }}
+      className={`scroll-header ${headerBehavior} `}
+      style={{ ...behaviorStyle }}
       aria-label="Scroll Header"
       role="heading"
       aria-level={1}
-      {...props}
       ref={ref}
     >
-      {children}
+      {itemRender({
+        collapse: {
+          open: () => headerCollaspeOpen(path),
+          close: () => headerCollaspeClose(path),
+          isOpen: !collapsedPaths.includes(path.join('-')),
+        },
+      })}
     </li>
   );
 };
