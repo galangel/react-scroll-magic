@@ -16,6 +16,9 @@ export type ScrollContextType = {
   setListRef: (listRef: HTMLUListElement) => void;
   headerBehavior: HeaderBehavior;
   addHeader: (header: HTMLLIElement, path: number[]) => void;
+  headerCollaspeOpen: (path: number[]) => void;
+  headerCollaspeClose: (path: number[]) => void;
+  collapsedPaths: string[];
 };
 
 const HeadersContext = React.createContext<ScrollContextType>({
@@ -27,6 +30,9 @@ const HeadersContext = React.createContext<ScrollContextType>({
   scrollBehavior: 'smooth',
   headerBehavior: 'none',
   addHeader: () => {},
+  headerCollaspeOpen: () => {},
+  headerCollaspeClose: () => {},
+  collapsedPaths: [],
 });
 
 export const useScrollContext = () => React.useContext(HeadersContext);
@@ -44,6 +50,7 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
   headerBehavior = 'none',
 }) => {
   const [listRef, setListRef] = useState<HTMLUListElement | null>(null);
+  const [collapsedPaths, setCollapsedPaths] = useState<string[]>([]);
 
   const headers = useRef<{ [key: string]: HTMLLIElement }>({});
 
@@ -130,6 +137,20 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
     return size;
   };
 
+  const headerCollaspeOpen = (path: number[]): undefined => {
+    const pathString = path.join('-');
+    if (collapsedPaths.includes(pathString)) {
+      setCollapsedPaths((prev) => prev.filter((item) => item !== pathString));
+    }
+  };
+
+  const headerCollaspeClose = (path: number[]): undefined => {
+    const pathString = path.join('-');
+    if (!collapsedPaths.includes(pathString)) {
+      setCollapsedPaths((prev) => [...prev, pathString]);
+    }
+  };
+
   return (
     <HeadersContext.Provider
       value={{
@@ -141,6 +162,9 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
         setListRef,
         scrollBehavior,
         headerBehavior,
+        headerCollaspeOpen,
+        headerCollaspeClose,
+        collapsedPaths,
       }}
     >
       {children}

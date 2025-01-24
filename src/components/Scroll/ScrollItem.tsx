@@ -1,13 +1,15 @@
 import React from 'react';
+import { Item } from './types';
 
-export const ScrollItem: React.FC<React.PropsWithChildren<React.LiHTMLAttributes<HTMLLIElement>>> = ({
-  children,
-  className = '',
-  ...props
-}) => {
+interface IScrollItemProps {
+  itemRender: Item['render'];
+  itemId?: Item['id'];
+}
+
+export const ScrollItem: React.FC<IScrollItemProps> = ({ itemRender, itemId }) => {
   return (
-    <li role="listitem" aria-label="Scroll Item" className={`scroll-item ${className}`} {...props}>
-      {children}
+    <li id={itemId} role="listitem" aria-label="Scroll Item" className={`scroll-item `}>
+      {itemRender({})}
     </li>
   );
 };
