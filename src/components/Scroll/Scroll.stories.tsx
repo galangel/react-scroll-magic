@@ -10,6 +10,11 @@ const preview: Preview = {
     controls: { expanded: true },
   },
   argTypes: {
+    items: {
+      control: { type: 'none' },
+      description: 'items to render in the scroll',
+      table: { type: { summary: 'Items' }, category: 'content' },
+    },
     headerBehavior: {
       control: { type: 'select' },
       options: ['stick', 'stack', 'push', 'none'],

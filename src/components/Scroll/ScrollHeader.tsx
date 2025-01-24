@@ -12,7 +12,6 @@ export const ScrollHeader: React.FC<IScrollHeaderProps> = ({
   className = '',
   ...props
 }) => {
-  const headerIndex = path[path.length - 1];
   const { getTopHeadersTotalHeight, getBottomHeadersTotalHeight, scrollToView, stickTo, headerBehavior, addHeader } =
     useScrollContext();
 
