@@ -8,7 +8,7 @@ const getItems = (items: Items, headerBehavior: HeaderBehavior, path: number[] =
   const Wrapper = headerBehavior === 'push' ? 'section' : React.Fragment;
 
   return (
-    <React.Fragment>
+    <section>
       {items.map((item, index) => {
         const currentPath = [...path, index];
 
@@ -23,7 +23,7 @@ const getItems = (items: Items, headerBehavior: HeaderBehavior, path: number[] =
           return <ScrollItem key={currentPath.join('-')}>{item.render()}</ScrollItem>;
         }
       })}
-    </React.Fragment>
+    </section>
   );
 };
 
