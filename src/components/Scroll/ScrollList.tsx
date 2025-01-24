@@ -5,26 +5,19 @@ import { ScrollHeader } from './ScrollHeader';
 import { ScrollItem } from './ScrollItem';
 
 const getItems = (items: Items, headerBehavior: HeaderBehavior, path: number[] = []) => {
+  const Wrapper = headerBehavior === 'push' ? 'section' : React.Fragment;
+
   return (
     <React.Fragment>
       {items.map((item, index) => {
         const currentPath = [...path, index];
         if (item.nestedItems?.length) {
-          if (headerBehavior === 'push') {
-            return (
-              <section key={currentPath.join('-')}>
-                <ScrollHeader path={currentPath}>{item.render()}</ScrollHeader>
-                {getItems(item.nestedItems, headerBehavior, currentPath)}
-              </section>
-            );
-          } else {
-            return (
-              <React.Fragment key={currentPath.join('-')}>
-                <ScrollHeader path={currentPath}>{item.render()}</ScrollHeader>
-                {getItems(item.nestedItems, headerBehavior, currentPath)}
-              </React.Fragment>
-            );
-          }
+          return (
+            <Wrapper key={currentPath.join('-')}>
+              <ScrollHeader path={currentPath}>{item.render()}</ScrollHeader>
+              {getItems(item.nestedItems, headerBehavior, currentPath)}
+            </Wrapper>
+          );
         } else {
           return <ScrollItem key={currentPath.join('-')}>{item.render()}</ScrollItem>;
         }
