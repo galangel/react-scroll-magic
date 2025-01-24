@@ -11,6 +11,7 @@ const getItems = (items: Items, headerBehavior: HeaderBehavior, path: number[] =
     <React.Fragment>
       {items.map((item, index) => {
         const currentPath = [...path, index];
+
         if (item.nestedItems?.length) {
           return (
             <Wrapper key={currentPath.join('-')}>
