@@ -1,9 +1,9 @@
 import React, { PropsWithChildren, useRef, useState } from 'react';
 import type { HeaderBehavior, StickTo } from './types';
 
-const getPathsbreakdown = (path: number[] = []): string[] => {
+const getPathsbreakdown = (path: number[] = []): number[][] => {
   const range = path.slice(0, path.length - 1);
-  const keys = range.map((_, index) => path.slice(0, index + 1).join('-'));
+  const keys = range.map((_, index) => path.slice(0, index + 1));
   return keys;
 };
 
@@ -12,7 +12,7 @@ export type ScrollContextType = {
   scrollBehavior: ScrollBehavior;
   getTopHeadersTotalHeight: (path: number[]) => number;
   getBottomHeadersTotalHeight: (path: number[]) => number;
-  scrollToView: (header: HTMLLIElement, path: number[]) => void;
+  scrollToView: (path: number[]) => void;
   setListRef: (listRef: HTMLUListElement) => void;
   headerBehavior: HeaderBehavior;
   addHeader: (header: HTMLLIElement, path: number[]) => void;
@@ -47,8 +47,8 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
 
   const headers = useRef<{ [key: string]: HTMLLIElement }>({});
 
-  const scrollToView = (header: HTMLLIElement, path: number[]) => {
-    const headerIndex = path[path.length - 1];
+  const scrollToView = (path: number[]) => {
+    const header = headers.current[path.join('-')];
     const nextItem = header.nextElementSibling as HTMLLIElement;
 
     if (listRef && nextItem) {
@@ -77,16 +77,27 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
   };
 
   const getTopHeadersTotalHeight = (path: number[] = []) => {
-    const targetPaths: string[] = getPathsbreakdown(path);
+    const pathBreakdown = getPathsbreakdown(path);
+    const targetPaths = pathBreakdown.map((item) => item.join('-'));
 
     if (headerBehavior === 'stick') {
+      const parentSibilings = pathBreakdown.reduce((acc, path) => {
+        const headerIndex = path[path.length - 1];
+        const siblings = Array.from({ length: headerIndex }, (_, index) => [
+          ...path.slice(0, path.length - 1),
+          index,
+        ]).map((item) => item.join('-'));
+        acc.push(...siblings);
+        return acc;
+      }, [] as string[]);
+      targetPaths.push(...parentSibilings);
+
       const headerIndex = path[path.length - 1];
-      const siblings = Array.from({ length: headerIndex }, (_, index) => [
+      const pathSibilings = Array.from({ length: headerIndex }, (_, index) => [
         ...path.slice(0, path.length - 1),
         index,
       ]).map((item) => item.join('-'));
-
-      targetPaths.push(...siblings);
+      targetPaths.push(...pathSibilings);
     }
 
     const range = targetPaths.map((key) => headers.current[key]);

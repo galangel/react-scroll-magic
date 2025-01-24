@@ -19,9 +19,7 @@ export const ScrollHeader: React.FC<IScrollHeaderProps> = ({
   const ref = useRef<HTMLLIElement | null>(null);
 
   const handleClick = () => {
-    if (ref.current) {
-      scrollToView(ref.current, path);
-    }
+    scrollToView(path);
   };
 
   useEffect(() => {
