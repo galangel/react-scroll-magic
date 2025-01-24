@@ -54,7 +54,10 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
     if (listRef && nextItem) {
       const nextItemStyles = window.getComputedStyle(nextItem);
 
-      const styleOffset =
+      const headerHeight = header.getBoundingClientRect().height;
+      const headersOffset = getTopHeadersTotalHeight(path);
+
+      const nextItemStyleOffset =
         parseFloat(nextItemStyles.marginTop) +
         parseFloat(nextItemStyles.marginBottom) +
         parseFloat(nextItemStyles.paddingTop) +
@@ -62,9 +65,7 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
         parseFloat(nextItemStyles.borderTopWidth) +
         parseFloat(nextItemStyles.borderBottomWidth);
 
-      const top = Math.ceil(
-        nextItem.offsetTop - getTopHeadersTotalHeight(path) - header.getBoundingClientRect().height + styleOffset,
-      );
+      const top = Math.ceil(nextItem.offsetTop - headersOffset - headerHeight + nextItemStyleOffset);
 
       listRef.scrollTo({ top, behavior: scrollBehavior });
     }
