@@ -203,3 +203,48 @@ export const CollapseExample: Story = {
     headerBehavior: 'stick',
   },
 };
+
+export const ScrollToIdExample: Story = {
+  render: (args) => {
+    const options: string[] = [];
+    const createItems = (headerCount: number, itemCount: number, group: number, level: number = 1): Items => {
+      if (headerCount === 0 || level === 0) {
+        return Array.from({ length: itemCount }, (_, index) => {
+          const id = `content-${group}-${level}-${index + 1}`;
+          options.push(id);
+          return { render: item, id };
+        });
+      }
+
+      return Array.from({ length: headerCount }, () => ({
+        render: Header(level),
+        nestedItems: createItems(headerCount, itemCount, group, level - 1),
+      }));
+    };
+    const myitems: Items = [
+      ...createItems(1, 10, 1),
+      ...createItems(1, 10, 2),
+      ...createItems(1, 10, 3),
+      ...createItems(1, 10, 4),
+    ];
+    return (
+      <div>
+        <select onChange={(e) => document.getElementById(e.target.value)?.scrollIntoView()}>
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+        <div style={{ width: '400px', height: '400px' }}>
+          <Scroll {...args} items={myitems} />
+        </div>
+      </div>
+    );
+  },
+  args: {
+    stickTo: 'all',
+    scrollBehavior: 'smooth',
+    headerBehavior: 'none',
+  },
+};
