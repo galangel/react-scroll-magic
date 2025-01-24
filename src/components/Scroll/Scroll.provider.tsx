@@ -54,12 +54,13 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
     if (listRef && nextItem) {
       const nextItemStyles = window.getComputedStyle(nextItem);
 
-      const nextItemMarginTop = parseFloat(nextItemStyles.marginTop);
-      const nextItemMarginBot = parseFloat(nextItemStyles.marginBottom);
-      const nextItemPaddingTop = parseFloat(nextItemStyles.paddingTop);
-      const nextItemPaddingBot = parseFloat(nextItemStyles.paddingBottom);
-
-      const styleOffset = nextItemMarginTop + nextItemMarginBot + nextItemPaddingTop + nextItemPaddingBot;
+      const styleOffset =
+        parseFloat(nextItemStyles.marginTop) +
+        parseFloat(nextItemStyles.marginBottom) +
+        parseFloat(nextItemStyles.paddingTop) +
+        parseFloat(nextItemStyles.paddingBottom) +
+        parseFloat(nextItemStyles.borderTopWidth) +
+        parseFloat(nextItemStyles.borderBottomWidth);
 
       const top = Math.ceil(
         nextItem.offsetTop - getTopHeadersTotalHeight(path) - header.getBoundingClientRect().height + styleOffset,
