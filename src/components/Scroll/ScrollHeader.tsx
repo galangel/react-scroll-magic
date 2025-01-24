@@ -1,42 +1,54 @@
-import React, { useEffect, useRef } from 'react';
+import React, { CSSProperties, useEffect, useMemo, useRef } from 'react';
 import { useScrollContext } from './Scroll.provider';
 
-interface IScrollHeaderProps extends React.PropsWithChildren<React.LiHTMLAttributes<HTMLLIElement>> {}
+interface IScrollHeaderProps extends React.PropsWithChildren<React.LiHTMLAttributes<HTMLLIElement>> {
+  path: number[];
+}
 
-export const ScrollHeader: React.FC<IScrollHeaderProps> = ({ children, style = {}, className = '', ...props }) => {
-  const { getStickedHeadersTotalHeight, addHeader, scrollToView, stickTo, headers } = useScrollContext();
-
-  const headerIndex = useRef(0);
+export const ScrollHeader: React.FC<IScrollHeaderProps> = ({
+  children,
+  path,
+  style = {},
+  className = '',
+  ...props
+}) => {
+  const { getTopHeadersTotalHeight, getBottomHeadersTotalHeight, scrollToView, stickTo, headerBehavior, addHeader } =
+    useScrollContext();
 
   const ref = useRef<HTMLLIElement | null>(null);
+
+  const handleClick = () => {
+    scrollToView(path);
+  };
 
   useEffect(() => {
     if (ref.current) {
       const currentElement = ref.current as HTMLLIElement;
 
-      const index = addHeader(currentElement);
-
-      headerIndex.current = index;
+      addHeader(currentElement, path);
     }
   }, [ref]);
 
-  const top = stickTo === 'top' || stickTo === 'all' ? getStickedHeadersTotalHeight(0, headerIndex.current) : 'auto';
-  const bottom =
-    stickTo === 'bottom' || stickTo === 'all'
-      ? getStickedHeadersTotalHeight(headerIndex.current + 1, headers.length)
-      : 'auto';
+  const behaviorStyle = useMemo(() => {
+    if (headerBehavior === 'stick') {
+      let top: CSSProperties['top'] = 'auto';
+      let bottom: CSSProperties['bottom'] = 'auto';
 
-  const handleClick = () => {
-    if (ref.current) {
-      scrollToView(ref.current, headerIndex.current);
+      top = stickTo === 'top' || stickTo === 'all' ? getTopHeadersTotalHeight(path) : 'auto';
+      bottom = stickTo === 'bottom' || stickTo === 'all' ? getBottomHeadersTotalHeight(path) : 'auto';
+
+      return { top, bottom, zIndex: 100 - path.length };
+    } else if (headerBehavior === 'push') {
+      const top: CSSProperties['top'] = getTopHeadersTotalHeight(path);
+      return { top, zIndex: 100 - path.length };
     }
-  };
+  }, [headerBehavior, path, stickTo]);
 
   return (
     <li
       onClick={handleClick}
-      className={`scroll-header ${className}`}
-      style={{ ...style, top, bottom }}
+      className={`scroll-header ${headerBehavior} ${className}`}
+      style={{ ...style, ...behaviorStyle }}
       aria-label="Scroll Header"
       role="heading"
       aria-level={1}

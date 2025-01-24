@@ -1,17 +1,19 @@
 import React from 'react';
 import { HeadersProvider } from './Scroll.provider';
 import { ScrollList } from './ScrollList';
-import type { StickTo } from './types';
+import type { HeaderBehavior, Items, StickTo } from './types';
 
-interface IScrollProps extends React.PropsWithChildren<React.LiHTMLAttributes<HTMLUListElement>> {
+interface IScrollProps {
   stickTo?: StickTo;
   scrollBehavior?: ScrollBehavior;
+  headerBehavior?: HeaderBehavior;
+  items: Items;
 }
 
-export const Scroll: React.FC<IScrollProps> = ({ stickTo, scrollBehavior, ...props }) => {
+export const Scroll: React.FC<IScrollProps> = ({ stickTo, scrollBehavior, headerBehavior, items }) => {
   return (
-    <HeadersProvider stickTo={stickTo} scrollBehavior={scrollBehavior}>
-      <ScrollList {...props} />
+    <HeadersProvider headerBehavior={headerBehavior} stickTo={stickTo} scrollBehavior={scrollBehavior}>
+      <ScrollList items={items} />
     </HeadersProvider>
   );
 };
