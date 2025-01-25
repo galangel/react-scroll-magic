@@ -42,16 +42,26 @@ export const ScrollToId: Story = {
     ];
     return (
       <div>
-        <select onChange={(e) => document.getElementById(e.target.value)?.scrollIntoView()}>
+        <div style={{ width: '400px', height: '500px' }}>
+          <Scroll {...args} items={myitems} />
+        </div>
+        <select
+          onChange={(e) => document.getElementById(e.target.value)?.scrollIntoView()}
+          style={{
+            padding: '8px',
+            borderRadius: '4px',
+            border: '1px solid #ccc',
+            marginTop: '10px',
+            width: '400px',
+            boxSizing: 'border-box',
+          }}
+        >
           {options.map((option) => (
             <option key={option} value={option}>
               {option}
             </option>
           ))}
         </select>
-        <div style={{ width: '400px', height: '500px' }}>
-          <Scroll {...args} items={myitems} />
-        </div>
       </div>
     );
   },

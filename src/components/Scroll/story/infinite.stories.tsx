@@ -45,7 +45,7 @@ export const InfiniteDefault: Story = {
     };
 
     return (
-      <div style={{ width: '400px', height: '400px' }}>
+      <div style={{ width: '400px', height: '500px' }}>
         <Scroll {...args} items={myitems} loading={loading} />
       </div>
     );
@@ -95,7 +95,7 @@ export const InfiniteCustomRender: Story = {
     };
 
     return (
-      <div style={{ width: '400px', height: '400px' }}>
+      <div style={{ width: '400px', height: '500px' }}>
         <Scroll {...args} items={myitems} loading={loading} />
       </div>
     );
