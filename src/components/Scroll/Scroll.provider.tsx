@@ -72,7 +72,10 @@ export const HeadersProvider: React.FC<IHeadersProvider> = ({
         parseFloat(nextItemStyles.borderTopWidth) +
         parseFloat(nextItemStyles.borderBottomWidth);
 
-      const top = Math.ceil(nextItem.offsetTop - headersOffset - headerHeight + nextItemStyleOffset);
+      const top =
+        stickTo === 'bottom'
+          ? Math.ceil(nextItem.offsetTop - headerHeight)
+          : Math.ceil(nextItem.offsetTop - headersOffset - headerHeight + nextItemStyleOffset);
 
       listRef.scrollTo({ top, behavior: scrollBehavior });
     }

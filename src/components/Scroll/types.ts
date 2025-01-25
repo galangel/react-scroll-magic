@@ -1,6 +1,6 @@
 export type StickTo = 'top' | 'bottom' | 'all';
 
-export type HeaderBehavior = 'stick' | 'push' | 'stack' | 'none';
+export type HeaderBehavior = 'stick' | 'push' | 'none';
 
 export type Collapse = {
   open: () => void;
