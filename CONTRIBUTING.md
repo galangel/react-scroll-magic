@@ -13,7 +13,7 @@ git clone https://github.com/your-username/react-scroll-magic.git
 
 3. **Create a branch**:
 
-- please use the github project to generate a branch for you, you can then use it to checkout locally manually or use github desktop
+- please use the github issues to generate a branch for you, you can then use it to checkout locally manually or use github desktop
 
 ## Making Changes
 
