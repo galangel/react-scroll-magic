@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { CSSProperties, useCallback, useEffect, useRef } from 'react';
 import { useScrollContext } from './Scroll.provider';
 import { Items, Loading } from './types';
 import { getItems } from './util/get-items';
@@ -10,7 +10,7 @@ interface IScrollListProps {
 }
 
 export const ScrollList: React.FC<IScrollListProps> = ({ items, loading }) => {
-  const { setListRef, headerBehavior, collapsedPaths } = useScrollContext();
+  const { setListRef, headerBehavior, collapsedPaths, scrollBehavior } = useScrollContext();
   const [isLoading, setisLoading] = React.useState(false);
   const listRef = useRef(null);
 
@@ -38,9 +38,13 @@ export const ScrollList: React.FC<IScrollListProps> = ({ items, loading }) => {
     },
     [items.length === 0, loading?.onBottomReached],
   );
-
   return (
-    <ul ref={listRef} className={`scroll-list`} onScroll={loading?.onBottomReached ? handleScroll : undefined}>
+    <ul
+      ref={listRef}
+      className={`scroll-list`}
+      onScroll={loading?.onBottomReached ? handleScroll : undefined}
+      style={{ scrollBehavior: scrollBehavior as CSSProperties['scrollBehavior'] }}
+    >
       {getItems({ items, headerBehavior, collapsedPaths })}
       {loading?.render ? loading.render(isLoading) : <ScrollLoading loading={isLoading} />}
     </ul>
