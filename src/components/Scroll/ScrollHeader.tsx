@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useMemo, useRef } from 'react';
+import React, { CSSProperties, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useScrollContext } from './Scroll.provider';
 import { Item } from './types';
 
@@ -50,6 +50,22 @@ export const ScrollHeader: React.FC<IScrollHeaderProps> = ({ path, itemId, itemR
     }
   }, [headerBehavior, path, stickTo]);
 
+  const memoizedHeaderCollapseOpen = useCallback(() => headerCollaspeOpen(path), [headerCollaspeOpen, path]);
+  const memoizedHeaderCollapseClose = useCallback(() => headerCollaspeClose(path), [headerCollaspeClose, path]);
+  const isCollapsed = useMemo(() => collapsedPaths.includes(path.join('-')), [collapsedPaths]);
+
+  const momoizedHeader = useMemo(
+    () =>
+      itemRender({
+        collapse: {
+          open: memoizedHeaderCollapseOpen,
+          close: memoizedHeaderCollapseClose,
+          isOpen: !isCollapsed,
+        },
+      }),
+    [itemRender, isCollapsed, memoizedHeaderCollapseOpen, memoizedHeaderCollapseClose],
+  );
+
   return (
     <li
       id={itemId}
@@ -58,16 +74,10 @@ export const ScrollHeader: React.FC<IScrollHeaderProps> = ({ path, itemId, itemR
       style={{ ...behaviorStyle }}
       aria-label="Scroll Header"
       role="heading"
-      aria-level={1}
+      aria-level={path.length}
       ref={ref}
     >
-      {itemRender({
-        collapse: {
-          open: () => headerCollaspeOpen(path),
-          close: () => headerCollaspeClose(path),
-          isOpen: !collapsedPaths.includes(path.join('-')),
-        },
-      })}
+      {momoizedHeader}
     </li>
   );
 };

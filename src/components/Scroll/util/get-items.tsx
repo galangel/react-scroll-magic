@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { ScrollHeader } from '../ScrollHeader';
 import { ScrollItem } from '../ScrollItem';
 import { Items, HeaderBehavior } from '../types';
+
+const hiddenStyles: CSSProperties = { visibility: 'hidden', position: 'absolute', width: '0', height: '0' };
 
 type GetItemsProps = {
   items: Items;
@@ -19,12 +21,14 @@ export const getItems = ({ headerBehavior, items, path = [], collapsedPaths }: G
         const currentPath = [...path, index];
 
         if (item.nestedItems?.length) {
+          const hiddenStyle = collapsedPaths.includes(currentPath.join('-')) ? hiddenStyles : {};
+
           return (
             <Wrapper key={currentPath.join('-')}>
               <ScrollHeader path={currentPath} itemRender={item.render} itemId={item.id} />
-              {collapsedPaths.includes(currentPath.join('-'))
-                ? null
-                : getItems({ items: item.nestedItems, headerBehavior, path: currentPath, collapsedPaths })}
+              <section style={hiddenStyle}>
+                {getItems({ items: item.nestedItems, headerBehavior, path: currentPath, collapsedPaths })}
+              </section>
             </Wrapper>
           );
         } else {
