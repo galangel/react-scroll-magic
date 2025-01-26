@@ -23,6 +23,7 @@ export default {
     options: { showPanel: false },
     controls: { hideNoControlsWarning: true, disable: true },
     actions: { disable: true },
+    toolbar: { hidden: true },
   },
 } as Meta;
 

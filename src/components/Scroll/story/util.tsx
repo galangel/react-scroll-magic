@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { Item } from '../types';
+import { useMemo } from 'react';
 
 const argTypes = {
   items: {
@@ -32,14 +33,15 @@ const headerRender =
   ({ collapse }) => {
     const { isOpen, close, open } = collapse ?? {};
 
-    let header;
-    if (key === 1) {
-      header = faker.person.jobTitle();
-    } else if (key === 2) {
-      header = faker.location.country();
-    } else {
-      header = faker.company.name();
-    }
+    const header = useMemo(() => {
+      if (key === 1) {
+        return faker.person.jobTitle();
+      } else if (key === 2) {
+        return faker.location.country();
+      } else {
+        return faker.company.name();
+      }
+    }, []);
 
     return (
       <div
@@ -74,10 +76,15 @@ const headerRender =
   };
 
 const itemRender: Item['render'] = () => {
-  const randomName = faker.person.fullName();
-  const color = `#${Math.floor(Math.random() * 16777215)
-    .toString(16)
-    .padStart(6, '0')}`;
+  const name = useMemo(() => faker.person.fullName(), []);
+  const color = useMemo(
+    () =>
+      `#${Math.floor(Math.random() * 16777215)
+        .toString(16)
+        .padStart(6, '0')}`,
+    [],
+  );
+
   return (
     <div
       style={{
@@ -99,7 +106,7 @@ const itemRender: Item['render'] = () => {
           marginRight: '10px',
         }}
       ></div>
-      {randomName}
+      {name}
     </div>
   );
 };
