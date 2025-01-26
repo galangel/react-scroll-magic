@@ -17,13 +17,13 @@ The Scroll Magic Component is a React component that provides smooth scrolling f
 To install the Scroll Component, use npm or yarn:
 
 ```bash
-npm install react-scroll-magic
+npm i @galangel/react-scroll-magic
 ```
 
 or
 
 ```bash
-yarn add react-scroll-magic
+yarn add @galangel/react-scroll-magic
 ```
 
 ## Usage
@@ -32,18 +32,18 @@ Here is a basic example of how to use the Scroll Component in your React applica
 
 ```jsx
 import React from 'react';
-import { ScrollComponent } from 'react-scroll-magic';
+import { ScrollComponent } from '@galangel/react-scroll-magic';
 
 const App = () => {
   return (
-    <Scroll>
-      <Scroll.Header>
-        <h1>Scroll down to see the magic!</h1>
-      </Scroll.Header>
-      <Scroll.Item>
-        <p>Keep scrolling...</p>
-      </Scroll.Item>
-    </Scroll>
+    <Scroll
+      items={
+        [
+          /* array of items */
+        ]
+      }
+      {...props}
+    />
   );
 };
 
@@ -54,10 +54,15 @@ export default App;
 
 The Scroll Component accepts the following props:
 
-| Prop             | Type                          | Description                                            |
-| ---------------- | ----------------------------- | ------------------------------------------------------ |
-| `stickTo`        | `top`\|`bottom`\|`all`        | how headers should stick                               |
-| `scrollBehavior` | `scrollBehavior CSS property` | how the scrolling should behave when clicking a header |
+| Prop                      | Type                                  | Description                                                     |
+| ------------------------- | ------------------------------------- | --------------------------------------------------------------- |
+| `stickTo`                 | `top`\|`bottom`\|`all`                | how headers should stick                                        |
+| `scrollBehavior`          | `scrollBehavior CSS property`         | how the scrolling should behave when clicking a header          |
+| `headerBehavior`          | `stick`\|`push`\|`none`               | how the headers behave when scrolling                           |
+| `items`                   | `items array`                         | nested structure of items                                       |
+| `loading`                 | `Loading`                             | object containing loading state and optional callbacks          |
+| `loading.onBottomReached` | `() => Promise<void>`                 | Optional callback function triggered when the bottom is reached |
+| `loading.render`          | `(isLoading: boolean) => JSX.Element` | Optional render function for custom loading indicator           |
 
 ## License
 
