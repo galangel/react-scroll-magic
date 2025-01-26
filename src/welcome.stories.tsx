@@ -102,13 +102,13 @@ const WelcomePage: React.FC = () => {
           render: headerRender('1. Install the Scroll Component using npm or yarn:'),
           nestedItems: [
             {
-              render: codeRender('npm install react-scroll-magic', { fontFamily: 'monospace' }),
+              render: codeRender('npm install @galangel/react-scroll-magic', { fontFamily: 'monospace' }),
             },
             {
               render: itemRender('or', { textAlign: 'center' }),
             },
             {
-              render: codeRender('yarn add react-scroll-magic', { fontFamily: 'monospace' }),
+              render: codeRender('yarn add @galangel/react-scroll-magic', { fontFamily: 'monospace' }),
             },
           ],
         },
@@ -116,7 +116,7 @@ const WelcomePage: React.FC = () => {
           render: headerRender('2. Import the Scroll Component in your React application:'),
           nestedItems: [
             {
-              render: codeRender('import { Scroll } from "react-scroll-magic";', {
+              render: codeRender('import { Scroll } from "@galangel/react-scroll-magic";', {
                 fontFamily: 'monospace',
               }),
             },
