@@ -64,12 +64,6 @@ The Scroll Component accepts the following props:
 | `loading.onBottomReached` | `() => Promise<void>`                 | Optional callback function triggered when the bottom is reached |
 | `loading.render`          | `(isLoading: boolean) => JSX.Element` | Optional render function for custom loading indicator           |
 
-### Loading Object
-
-The `Loading` object should have the following structure:
-
-| Prop | Type | Description |
-
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
