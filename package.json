@@ -1,6 +1,6 @@
 {
   "name": "@galangel/react-scroll-magic",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Powerful scroll component that feels like magic!",
   "author": "Gal Angel <gal0angel@gmail.com> (@gal.angel)",
   "keywords": [
@@ -9,11 +9,15 @@
     "sticky",
     "list"
   ],
-  "license": "MIT",
+  "license": "Apache-2.0",
   "private": false,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/galangel/react-scroll-magic.git"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "type": "module",
   "main": "dist/cjs/index.js",
