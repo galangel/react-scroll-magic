@@ -1,34 +1,8 @@
 import React, { useCallback, useEffect } from 'react';
 import { Scroll } from '../../index';
-import { Items, Item } from '../../types';
-import type { ChatMessage } from './types';
-import {
-  QuestionBubble,
-  AgentStepHeader,
-  OutputLineItem,
-  ChatHeader,
-  ChatInput,
-  EmptyState,
-  ChatStyles,
-} from './components';
+import { ChatHeader, ChatInput, EmptyState, ChatStyles } from './components';
 import { useAutoScroll, useChatMessages } from './hooks';
-
-const convertToItems = (messages: ChatMessage[]): Items => {
-  return messages.map((message) => ({
-    id: message.id,
-    render: () => <QuestionBubble question={message.question} timestamp={new Date().toLocaleTimeString()} />,
-    nestedItems: message.steps.map((step) => ({
-      id: step.id,
-      render: ({ collapse }: { collapse?: { isOpen: boolean; open: () => void; close: () => void } }) => (
-        <AgentStepHeader step={step} collapse={collapse} />
-      ),
-      nestedItems: step.outputs.map((output, idx) => ({
-        id: output.id,
-        render: () => <OutputLineItem text={output.text} isNew={idx === step.outputs.length - 1} />,
-      })),
-    })) as Item[],
-  }));
-};
+import { convertToItems } from './utils';
 
 export const AIChatDemo: React.FC = () => {
   const { messages, isGenerating, generateResponse } = useChatMessages();

@@ -1,5 +1,7 @@
 export { QuestionBubble } from './QuestionBubble';
 export { AgentStepHeader } from './AgentStepHeader';
+export { ReasoningHeader } from './ReasoningHeader';
+export { SolutionHeader } from './SolutionHeader';
 export { OutputLineItem } from './OutputLineItem';
 export { ChatHeader } from './ChatHeader';
 export { ChatInput } from './ChatInput';

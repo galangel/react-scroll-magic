@@ -1,9 +1,11 @@
-import React from 'react';
-import type { AgentStep } from '../types';
-import { getStepConfig } from '../utils';
+import React, { useEffect } from 'react';
 
-interface AgentStepHeaderProps {
-  step: AgentStep;
+// Track which message IDs have already had their reasoning auto-collapsed
+const collapsedReasoningIds = new Set<string>();
+
+interface ReasoningHeaderProps {
+  messageId: string;
+  messageIsComplete?: boolean;
   collapse?: {
     isOpen: boolean;
     open: () => void;
@@ -11,12 +13,19 @@ interface AgentStepHeaderProps {
   };
 }
 
-export const AgentStepHeader: React.FC<AgentStepHeaderProps> = ({ step, collapse }) => {
-  const config = getStepConfig(step.type);
+export const ReasoningHeader: React.FC<ReasoningHeaderProps> = ({ messageId, messageIsComplete, collapse }) => {
   const { isOpen, open, close } = collapse ?? {};
 
+  // Auto-collapse reasoning when the message becomes complete
+  useEffect(() => {
+    if (messageIsComplete && !collapsedReasoningIds.has(messageId) && collapse?.isOpen) {
+      collapsedReasoningIds.add(messageId);
+      collapse.close();
+    }
+  }, [messageIsComplete, messageId, collapse]);
+
   const handleCollapseClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent scroll-to behavior from triggering
+    e.stopPropagation();
     if (isOpen) {
       close?.();
     } else {
@@ -30,24 +39,25 @@ export const AgentStepHeader: React.FC<AgentStepHeaderProps> = ({ step, collapse
         display: 'flex',
         alignItems: 'center',
         gap: '10px',
-        padding: '10px 16px 10px 64px',
-        backgroundColor: '#16213e',
+        padding: '10px 16px 10px 32px',
+        backgroundColor: '#1a2744',
         borderBottom: '1px solid #2d2d44',
         width: '100%',
         boxSizing: 'border-box',
       }}
     >
-      <span style={{ fontSize: '16px' }}>{config.icon}</span>
+      <span style={{ fontSize: '16px' }}>🧠</span>
       <span
         style={{
-          fontSize: '13px',
-          color: '#b8c5d6',
+          fontSize: '14px',
+          color: '#a8b9cc',
           flex: 1,
+          fontWeight: 500,
         }}
       >
-        {step.title}
+        Reasoning
       </span>
-      {!step.isComplete && (
+      {!messageIsComplete && (
         <span
           style={{
             width: '8px',

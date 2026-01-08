@@ -1,9 +1,6 @@
 import React from 'react';
-import type { AgentStep } from '../types';
-import { getStepConfig } from '../utils';
 
-interface AgentStepHeaderProps {
-  step: AgentStep;
+interface SolutionHeaderProps {
   collapse?: {
     isOpen: boolean;
     open: () => void;
@@ -11,12 +8,11 @@ interface AgentStepHeaderProps {
   };
 }
 
-export const AgentStepHeader: React.FC<AgentStepHeaderProps> = ({ step, collapse }) => {
-  const config = getStepConfig(step.type);
+export const SolutionHeader: React.FC<SolutionHeaderProps> = ({ collapse }) => {
   const { isOpen, open, close } = collapse ?? {};
 
   const handleCollapseClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent scroll-to behavior from triggering
+    e.stopPropagation();
     if (isOpen) {
       close?.();
     } else {
@@ -30,34 +26,24 @@ export const AgentStepHeader: React.FC<AgentStepHeaderProps> = ({ step, collapse
         display: 'flex',
         alignItems: 'center',
         gap: '10px',
-        padding: '10px 16px 10px 64px',
-        backgroundColor: '#16213e',
-        borderBottom: '1px solid #2d2d44',
+        padding: '10px 16px 10px 32px',
+        backgroundColor: '#1a3a2a',
+        borderBottom: '1px solid #2d4d3d',
         width: '100%',
         boxSizing: 'border-box',
       }}
     >
-      <span style={{ fontSize: '16px' }}>{config.icon}</span>
+      <span style={{ fontSize: '16px' }}>✨</span>
       <span
         style={{
-          fontSize: '13px',
-          color: '#b8c5d6',
+          fontSize: '14px',
+          color: '#a8ccb9',
           flex: 1,
+          fontWeight: 500,
         }}
       >
-        {step.title}
+        Solution
       </span>
-      {!step.isComplete && (
-        <span
-          style={{
-            width: '8px',
-            height: '8px',
-            borderRadius: '50%',
-            backgroundColor: '#4f46e5',
-            animation: 'pulse 1.5s infinite',
-          }}
-        />
-      )}
       {collapse && (
         <button
           onClick={handleCollapseClick}
@@ -68,20 +54,20 @@ export const AgentStepHeader: React.FC<AgentStepHeaderProps> = ({ step, collapse
             width: '24px',
             height: '24px',
             borderRadius: '4px',
-            border: '1px solid #3d4f6f',
-            backgroundColor: isOpen ? '#1e3a5f' : '#2d3f5f',
-            color: '#8899a6',
+            border: '1px solid #3d6f4f',
+            backgroundColor: isOpen ? '#1e5f3a' : '#2d5f3f',
+            color: '#8aa696',
             cursor: 'pointer',
             transition: 'all 0.2s',
             padding: 0,
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = '#2a4a6f';
-            e.currentTarget.style.borderColor = '#4f6f8f';
+            e.currentTarget.style.backgroundColor = '#2a6f4a';
+            e.currentTarget.style.borderColor = '#4f8f6f';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = isOpen ? '#1e3a5f' : '#2d3f5f';
-            e.currentTarget.style.borderColor = '#3d4f6f';
+            e.currentTarget.style.backgroundColor = isOpen ? '#1e5f3a' : '#2d5f3f';
+            e.currentTarget.style.borderColor = '#3d6f4f';
           }}
           aria-label={isOpen ? 'Collapse' : 'Expand'}
           title={isOpen ? 'Collapse' : 'Expand'}
