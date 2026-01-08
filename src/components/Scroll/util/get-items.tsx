@@ -3,7 +3,7 @@ import { ScrollHeader } from '../ScrollHeader';
 import { ScrollItem } from '../ScrollItem';
 import { Items, HeaderBehavior } from '../types';
 
-const hiddenStyles: CSSProperties = { visibility: 'hidden', position: 'absolute', width: '0', height: '0' };
+const collapsedStyles: CSSProperties = { display: 'none' };
 
 type GetItemsProps = {
   items: Items;
@@ -21,7 +21,8 @@ export const getItems = ({ headerBehavior, items, path = [], collapsedPaths }: G
         const currentPath = [...path, index];
 
         if (item.nestedItems?.length) {
-          const hiddenStyle = collapsedPaths.includes(currentPath.join('-')) ? hiddenStyles : {};
+          const isCollapsed = collapsedPaths.includes(currentPath.join('-'));
+          const hiddenStyle = isCollapsed ? collapsedStyles : undefined;
 
           return (
             <Wrapper key={currentPath.join('-')}>

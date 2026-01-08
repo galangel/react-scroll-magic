@@ -6,7 +6,7 @@
   width: 100%;
   list-style-position: inside;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   position: relative;
 }
 
