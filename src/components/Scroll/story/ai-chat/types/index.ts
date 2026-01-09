@@ -14,6 +14,7 @@ export interface AgentStep {
 export interface ChatMessage {
   id: string;
   question: string;
+  timestamp: string;
   steps: AgentStep[];
   isComplete: boolean;
 }
