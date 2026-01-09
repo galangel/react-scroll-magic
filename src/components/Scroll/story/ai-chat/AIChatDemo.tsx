@@ -7,19 +7,16 @@ import { convertToItems } from './utils';
 export const AIChatDemo: React.FC = () => {
   const { messages, isGenerating, generateResponse } = useChatMessages();
 
-  const { scrollContainerRef, shouldAutoScroll, scrollToBottom, forceAutoScrollOn } = useAutoScroll({
-    hasContent: messages.length > 0,
-  });
+  const { scrollContainerRef, shouldAutoScroll, scrollToBottom } = useAutoScroll();
 
-  // Handle generate button click - force scroll to bottom
+  // Handle generate button click - scroll to bottom
   const handleGenerate = useCallback(() => {
-    forceAutoScrollOn();
     generateResponse();
     // Scroll to bottom after a small delay to let the message render
     requestAnimationFrame(() => {
       scrollToBottom();
     });
-  }, [forceAutoScrollOn, generateResponse, scrollToBottom]);
+  }, [generateResponse, scrollToBottom]);
 
   // Auto-scroll when messages change (only if user is near bottom and not actively scrolling)
   useEffect(() => {
