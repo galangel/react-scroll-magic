@@ -52,7 +52,7 @@ export const useChatMessages = (): UseChatMessagesReturn => {
 
     for (const stepType of stepTypes) {
       const stepId = faker.string.uuid();
-      const outputCount = stepType === 'solution' ? 1 : faker.number.int({ min: 2, max: 5 });
+      const outputCount = stepType === 'solution' ? 1 : faker.number.int({ min: 5, max: 10 });
 
       // Add the step header
       addDelayedAction(() => {
@@ -78,7 +78,7 @@ export const useChatMessages = (): UseChatMessagesReturn => {
         );
       }, totalDelay);
 
-      totalDelay += faker.number.int({ min: 300, max: 600 });
+      totalDelay += faker.number.int({ min: 400, max: 700 });
 
       // Add output lines one by one
       for (let i = 0; i < outputCount; i++) {
@@ -105,7 +105,7 @@ export const useChatMessages = (): UseChatMessagesReturn => {
           );
         }, totalDelay);
 
-        totalDelay += faker.number.int({ min: 100, max: 300 });
+        totalDelay += faker.number.int({ min: 150, max: 350 });
       }
 
       // Mark step as complete
@@ -122,7 +122,7 @@ export const useChatMessages = (): UseChatMessagesReturn => {
         );
       }, totalDelay);
 
-      totalDelay += faker.number.int({ min: 200, max: 400 });
+      totalDelay += faker.number.int({ min: 300, max: 500 });
     }
 
     // Mark message as complete

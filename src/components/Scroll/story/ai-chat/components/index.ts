@@ -7,3 +7,4 @@ export { ChatHeader } from './ChatHeader';
 export { ChatInput } from './ChatInput';
 export { EmptyState } from './EmptyState';
 export { ChatStyles } from './ChatStyles';
+export { DocumentationPanel } from './DocumentationPanel';
