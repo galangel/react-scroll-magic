@@ -38,6 +38,7 @@ export const useChatMessages = (): UseChatMessagesReturn => {
     const newMessage: ChatMessage = {
       id: messageId,
       question,
+      timestamp: new Date().toLocaleTimeString(),
       steps: [],
       isComplete: false,
     };

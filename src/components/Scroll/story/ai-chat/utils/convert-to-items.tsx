@@ -41,7 +41,7 @@ export const convertToItems = (messages: ChatMessage[]): Items => {
 
     return {
       id: message.id,
-      render: () => <QuestionBubble question={message.question} timestamp={new Date().toLocaleTimeString()} />,
+      render: () => <QuestionBubble question={message.question} timestamp={message.timestamp} />,
       nestedItems,
     };
   });
