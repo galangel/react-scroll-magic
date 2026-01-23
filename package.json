@@ -35,7 +35,7 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "postinstall": "git config core.hooksPath ./git-hooks",
+    "prepare": "node -e \"const fs=require('fs'); const {execSync}=require('child_process'); if (fs.existsSync('.git') && fs.existsSync('git-hooks')) { try { execSync('git config core.hooksPath ./git-hooks', { stdio: 'ignore' }); } catch (_) {} }\"",
     "dev": "storybook dev -p 6006",
     "build": "tsc && vite build",
     "build-storybook": "storybook build",
